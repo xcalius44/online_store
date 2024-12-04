@@ -1,0 +1,28 @@
+{% extends "blog/base.html" %}
+{% load static %}
+{% load tags %}
+
+{% block title %}
+  {{ product.name }}
+{% endblock %}
+
+{% block content %}
+  <h2>{{ product.name }}</h2>
+  <h5><a href="{{ product.category.get_absolute_url }}">{{ product.category }}</a></h5>
+  <div class="row">
+    <div class="col-6">
+      <p>
+        <img src="{% if product.image %}
+            {{ product.image.url }}
+          {% else %}
+            {% static 'img/no_image.png' %}
+          {% endif %}"
+          class="w-100" />
+      </p>
+      <p class="h5 text-center">
+        <span class="border border-warning border-2 rounded p-2">{{ product.price }} ₴</span>
+      </p>
+    </div>
+    <div class="col-6">{{ product.description|markdown }}</div>
+  </div>
+{% endblock %}
