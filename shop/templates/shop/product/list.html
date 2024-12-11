@@ -18,25 +18,6 @@
       {% for c in categories %}
       <li class="nav-item">
         <a href="{{ c.get_absolute_url }}" class="nav-link {% if category.slug == c.slug %}text-bg-warning{% endif %}">
-      <div class="col-9">
-          <h4 class="my-3">{% if category %}{{ category.name }}{% else %}Products{% endif %}</h4>
-          <div class="row row-cols-1 row-cols-md-2 g-4">
-            {% for product in products %}
-            <div class="col">
-              <div class="card h-100">
-                <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}" class="card-img-top img-fluid">
-                <div class="card-body">
-                  <h5 class="card-title">{{ product.name }}</h5>
-                  <p class="card-text">{{product.price }} ₴</p>
-                </div>
-                <div class="card-footer">
-                  <a href="{{ product.get_absolute_url }}" class="btn btn-warning">Open</a>
-                </div>
-              </div>
-            </div>
-            {% endfor %}
-          </div>
-      </div>
           {{ c.name }}
         </a>
       </li>
@@ -48,22 +29,28 @@
     <h4 class="my-3">
       {% if category %}{{ category.name }}{% else %}Каталог товарів{% endif %}
     </h4>
-    {% for product in products %}
-    <div class="card" style="width: 18rem;">
-      <img src="
-        {% if product.image %}
+    <div class="row row-cols-1 row-cols-md-3 g-4">
+      {% for product in products %}
+      <div class="col">
+        <div class="card h-100">
+          <img src="
+          {% if product.image %}
           {{ product.image.url }}
-        {% else %}
+          {% else %}
           {% static 'img/no_image.png' %}
-        {% endif %}" 
-      class="card-img-top">
-      <div class="card-body">
-        <h5 class="card-title">{{ product.name }}</h5>
-        <p class="card-text">{{ product.price }} ₴</p>
-        <a href="{{ product.get_absolute_url }}" class="btn btn-warning">Відкрити</a>
+          {% endif %}" 
+          class="card-img-top">
+          <div class="card-body">
+            <h5 class="card-title">{{ product.name }}</h5>
+            <p class="card-text">{{ product.price }} ₴</p>
+          </div>
+          <div class="card-footer">
+            <a href="{{ product.get_absolute_url }}" class="btn btn-warning">Відкрити</a>
+          </div>
+        </div>
       </div>
+      {% endfor %}
     </div>
-    {% endfor %}
   </div>
 </div>
 {% endblock content %}

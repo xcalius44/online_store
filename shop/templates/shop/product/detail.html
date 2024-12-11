@@ -1,4 +1,4 @@
-{% extends "blog/base.html" %}
+{% extends 'shop/base.html' %}
 {% load static %}
 {% load tags %}
 
@@ -19,9 +19,16 @@
           {% endif %}"
           class="w-100" />
       </p>
-      <p class="h5 text-center">
-        <span class="border border-warning border-2 rounded p-2">{{ product.price }} ₴</span>
-      </p>
+      <form action="{% url 'cart:cart_add' product.id%}" method="post">
+        {% csrf_token %}
+        <p class="h5 text-center">
+          <span class="border border-warning border-2 rounded p-1">{{ product.price }} ₴</span>
+          <input type="submit" class="ms-2 mb-1 btn btn-warning fw-bold h-100" value="Купити">
+        </p>
+        <div class="text-center">
+          {{ cart_product_form }}
+        </div>
+      </form>
     </div>
     <div class="col-6">{{ product.description|markdown }}</div>
   </div>
