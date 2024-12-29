@@ -1,0 +1,22 @@
+{% extends "shop/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Змінити профіль користувача{% endblock  %}
+
+{% block content %}
+<div class="row">
+  <div class="col-6">
+    <div class="d-flex align-items-center">
+      <h2>Змінити профіль користувача</h2>
+      <div class="w-25 m-2"><img src="{{ user.profile.photo.url }}" class="w-100"></div>
+    </div>
+    <form method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ user_form|crispy }}
+      {{ profile_form|crispy }}
+      <p><input type="submit" value="Зберегти" class="btn btn-warning"></p>
+    </form>
+    <p><a href="{% url 'password_change' %}">Змінити пароль</a></p>
+  </div>
+</div>
+{% endblock content %}

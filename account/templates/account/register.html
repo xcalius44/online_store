@@ -1,0 +1,17 @@
+{% extends "shop/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Створити нового користувача{% endblock  %}
+
+{% block content %}
+<div class="row">
+  <div class="col-6">
+    <h2>Створити нового користувача</h2>
+    <form method="post">
+      {% csrf_token %}
+      {{ user_form|crispy }}
+      <p><input type="submit" value="Створити" class="btn btn-warning"></p>
+    </form>
+  </div>
+</div>
+{% endblock content %}

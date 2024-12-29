@@ -28,22 +28,41 @@
             </form>
     
             <div class="text-end">
-              <button type="button" class="btn btn-outline-light me-2">Вхід</button>
-              <button type="button" class="btn btn-warning">Реєстрація</button>
-              <a href="{% url 'cart:cart_detail' %}" class="btn btn-outline-light position-relative">
-                <i class="bi bi-cart"></i>
-                {% with total_items=cart|length %}
+              <form action="{% url 'logout' %}" method="post">
+                {% if request.user.is_authenticated %}
+                  {% csrf_token %}
+                  <a href="{% url 'edit' %}" class="btn btn-warning">
+                    {{ request.user.first_name|default:request.user.username }}
+                  </a>
+                  <input type="submit" class="btn btn-outline-light me-2" value="Вихід">
+                {% else %}
+                  <a href="{% url 'login' %}" class="btn btn-outline-light me-2">Вхід</a>
+                  <a href="{% url 'register' %}" class="btn btn-warning">Реєстрація</a>
+                {% endif %}
+                <a href="{% url 'cart:cart_detail' %}" class="btn btn-outline-light position-relative">
+                  <i class="bi bi-cart"></i>
+                  {% with total_items=cart|length %}
                   {% if total_items > 0 %}
-                    <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                      {{ total_items }}
-                    </span>
+                  <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    {{ total_items }}
+                  </span>
                   {% endif %}
-                {% endwith %}
-              </a>
+                  {% endwith %}
+                </a>
+              </form>
             </div>
           </div>
         </div>
       </header>
+    </div>
+
+    <div class="container mt-2" id="messages">
+      {% for message in messages %}
+      <div class="alert alert-{% if messages.tags == 'error' %}danger{% else %}success{% endif %} alert-dismissible fade show">
+        {{ message|safe }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+      </div>
+      {% endfor %}
     </div>
 
     <div class="container">

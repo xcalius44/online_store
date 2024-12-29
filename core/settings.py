@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'account',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,7 +40,13 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'shop',
     'cart',
+    'crispy_forms',
+    'crispy_bootstrap5',
 ]
+
+CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
+CRISPY_TEMPLATE_PACK = "bootstrap5"
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -131,3 +138,11 @@ MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
 CART_SESSION_ID = 'cart'
+
+LOGIN_REDIRECT_URL = 'shop:product_list'
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
+
+# E-mails
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

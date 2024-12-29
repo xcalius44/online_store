@@ -1,0 +1,27 @@
+{% extends "shop/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block title %}Вхід на сайт{% endblock  %}
+
+{% block content %}
+<div class="row">
+  <div class="col-4">
+    <h2>Вхід на сайт</h2>
+    {% if form.errors %}
+      <p>Помилка входу на сайт. Спробуйте ще раз.</p>
+    {% else %}
+      <p>Заповніть поля нижче для входу на сайт</p>
+    {% endif %}
+    <form method="post">
+      {{ form|crispy }}
+      {% csrf_token %}
+      <input type="hidden" name="next" value="{{ next }}">
+      <input type="submit" value="Вхід" class="btn btn-warning">
+    </form>
+    <p class="mt-2">
+      <a href="{% url 'register' %}" class="text-decoration-none">Реєстрація</a> 
+      <a href="{% url 'password_reset' %}" class="ms-2 text-decoration-none">Забули пароль?</a>
+    </p>
+  </div>
+</div>
+{% endblock content %}
