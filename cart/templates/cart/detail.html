@@ -56,6 +56,6 @@
   </table>
   <p class="text-end">
     <a href="{% url 'shop:product_list' %}" class="btn btn-secondary">Продовжити</a>
-    <a href="#" class="btn btn-warning">Замовити</a>
+    <a href="{% url 'orders:order_create' %}" class="btn btn-warning">Замовити</a>
   </p>
 {% endblock content %}
