@@ -27,7 +27,13 @@
 
   <div class="col-9">
     <h4 class="my-3">
-      {% if category %}{{ category.name }}{% else %}Каталог товарів{% endif %}
+      {% if category %}
+        {{ category.name }}
+      {% elif query %}
+        Результат пошуку: {{ query }}
+      {% else %}
+        Каталог товарів
+      {% endif %}
     </h4>
     <div class="row row-cols-1 row-cols-md-3 g-4">
       {% for product in products %}

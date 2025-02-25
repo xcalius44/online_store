@@ -47,15 +47,38 @@
           </tr>
         {% endwith %}
       {% endfor %}
+    </tbody>
+    <tfoot>
+      {% if cart.coupon %}
+      <tr>
+        <td>До знижки</td>
+        <td colspan="4"></td>
+        <td class="fw-bold text-end">{{ cart.get_total_price|floatformat:2 }} ₴</td>
+      </tr>
+      <tr>
+        <td>Купон "{{ cart.coupon.code }}" на {{ cart.coupon.discount }}%</td>
+        <td colspan="4"></td>
+        <td class="fw-bold text-end">{{ cart.get_discount|floatformat:2 }} ₴</td>
+      </tr>
+      {% endif %}
       <tr class="fw-bold">
         <td>Разом:</td>
         <td colspan="4"></td>
-        <td class="text-end">{{ cart.get_total_price }} ₴</td>
+        <td class="text-end">{{ cart.get_total_price_after_discount|floatformat:2 }} ₴</td>
       </tr>
-    </tbody>
+    </tfoot>
   </table>
-  <p class="text-end">
-    <a href="{% url 'shop:product_list' %}" class="btn btn-secondary">Продовжити</a>
-    <a href="{% url 'orders:order_create' %}" class="btn btn-warning">Замовити</a>
-  </p>
+  <div class="d-flex justify-content-between">
+    <form class="d-flex align-items-start" action="{% url 'coupons:apply' %}" method="post">
+      {% csrf_token %}
+      <div class="mt-1">
+        {{ coupon_apply_form }}
+      </div>
+      <input type="submit" class="btn btn-outline-dark ms-3" value="Застосувати">
+    </form>
+    <p class="text-end">
+      <a href="{% url 'shop:product_list' %}" class="btn btn-secondary">Продовжити</a>
+      <a href="{% url 'orders:order_create' %}" class="btn btn-warning">Замовити</a>
+    </p>
+  </div>
 {% endblock content %}
